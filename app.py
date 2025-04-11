@@ -144,11 +144,8 @@ if st.button("Calcular"):
             )
         else:
             st.warning("""
-            No se encontró un incentivo para esta combinación
-            
-            Por favor verifica que:
-            1. La combinación de combustible actual y de reemplazo sea válida
-            2. El año de fabricación corresponda a tu vehículo
+            El incentivo para esta combinación no está disponible
+        
             """)
 
 # Updated footer
