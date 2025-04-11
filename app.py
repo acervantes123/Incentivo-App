@@ -75,8 +75,8 @@ def load_data():
 data = load_data()
 
 # App header - Centered title
-st.markdown('<h1 class="title">Calculadora de Incentivos para Programa de Chatarreo</h1>', unsafe_allow_html=True)
-st.markdown("<p style='text-align: center;'>Selecciona los datos del vehículo para conocer el incentivo disponible.</p>", unsafe_allow_html=True)
+st.markdown('<h1 class="title">Calculadora de Incentivos para Chatarreo</h1>', unsafe_allow_html=True)
+st.markdown("<p style='text-align: center;'>Selecciona los datos del vehículo para conocer el incentivo de chatarreo disponible.</p>", unsafe_allow_html=True)
 
 # Create columns for better organization
 col1, col2 = st.columns(2)
@@ -84,10 +84,12 @@ with col1:
     categoria = st.selectbox(
         "Categoría del Vehículo", 
         sorted(data["Categoria"].unique())
+    )
     
     comb_actual = st.selectbox(
         "Combustible de vehículo actual", 
         sorted(data["Combustible_actual"].unique())
+    )
 
 with col2:
     # Sort years with custom order
@@ -97,11 +99,13 @@ with col2:
     
     anio_fabricacion = st.selectbox(
         "Año de Fabricación",
-        sorted_years)
+        sorted_years
+    )
     
     comb_reemplazo = st.selectbox(
         "Combustible de vehículo nuevo", 
-        sorted(data["Combustible_reemplazo"].unique()))
+        sorted(data["Combustible_reemplazo"].unique())
+    )
 
 # Calculate button
 st.markdown("---")
@@ -131,4 +135,4 @@ if st.button("Calcular"):
 
 # Add footer
 st.markdown("---")
-st.caption("© 2025 Programa de Renovación Vehicular AAP - Todos los derechos reservados")
+st.caption("© 2023 Programa de Renovación Vehicular - Todos los derechos reservados")
