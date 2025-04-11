@@ -29,7 +29,13 @@ st.write("Selecciona los datos del vehículo para conocer el incentivo disponibl
 categoria = st.selectbox("Categoría", sorted(data["Categoria"].unique()))
 comb_actual = st.selectbox("Combustible actual", sorted(data["Combustible_actual"].unique()))
 comb_reemplazo = st.selectbox("Combustible de reemplazo", sorted(data["Combustible_reemplazo"].unique()))
-anio_fabricacion = st.selectbox("Año de fabricación", sorted(data["Año_fabricacion"].unique()))
+
+# Sort years: "Antes del 2000" first, then ascending order
+available_years = data["Año_fabricacion"].unique()
+sorted_years = sorted(
+    available_years,
+    key=lambda x: (0 if x == "Antes del 2000" else int(x.split("-")[0]))
+anio_fabricacion = st.selectbox("Año de fabricación", sorted_years)
 
 # Button to calculate
 if st.button("Calcular incentivo"):
@@ -47,5 +53,4 @@ if st.button("Calcular incentivo"):
         st.success(f"Incentivo disponible: **{valor:.2f}**")
     else:
         st.warning("No se encontró un incentivo para esta combinación.")
-
 
