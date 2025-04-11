@@ -1,25 +1,43 @@
 import streamlit as st
 import pandas as pd
 
-# Custom CSS for better styling
+# Custom CSS for professional styling
 st.markdown("""
 <style>
+    .main {
+        background-color: #F5F5F5;
+    }
     .stSelectbox div[data-baseweb="select"] {
         margin-bottom: 15px;
+        background-color: white;
     }
     .stButton button {
         width: 100%;
-        background-color: #4CAF50;
+        background-color: #0068c9;
         color: white;
         font-weight: bold;
+        border-radius: 4px;
+    }
+    .stButton button:hover {
+        background-color: #0056b3;
     }
     .stSuccess {
-        font-size: 18px !important;
-        text-align: center;
+        background-color: #e6f7ee;
+        border-left: 5px solid #00a651;
+        padding: 1rem;
+        font-size: 18px;
     }
     .stWarning {
-        font-size: 18px !important;
-        text-align: center;
+        background-color: #fff3e6;
+        border-left: 5px solid #ff9900;
+        padding: 1rem;
+        font-size: 18px;
+    }
+    .header {
+        color: #0068c9;
+        border-bottom: 1px solid #e0e0e0;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -48,12 +66,9 @@ def load_data():
 # Load data
 data = load_data()
 
-# App layout
-st.title("🚗 Calculadora de Incentivos para Renovación Vehicular")
-st.markdown("""
-**Selecciona las características de tu vehículo actual para conocer el incentivo disponible 
-para renovarlo por uno más ecológico.**
-""")
+# App header
+st.markdown('<h1 class="header">Calculadora de Incentivos para Chatarreo</h1>', unsafe_allow_html=True)
+st.markdown("Selecciona los datos del vehículo para conocer el incentivo de chatarreo disponible.")
 
 # Create columns for better organization
 col1, col2 = st.columns(2)
@@ -65,18 +80,12 @@ with col1:
     )
     
     comb_actual = st.selectbox(
-        "Combustible Actual", 
+        "Combustible de vehículo actual", 
         sorted(data["Combustible_actual"].unique()),
         help="Tipo de combustible que usa tu vehículo actual"
     )
 
 with col2:
-    comb_reemplazo = st.selectbox(
-        "Combustible de Reemplazo", 
-        sorted(data["Combustible_reemplazo"].unique()),
-        help="Tipo de combustible del vehículo nuevo que deseas adquirir"
-    )
-    
     # Sort years with custom order
     available_years = data["Año_fabricacion"].unique().tolist()
     year_order = ["Antes del 2000", "2000-2002", "2003-2006", "2007-2017"]
@@ -87,11 +96,17 @@ with col2:
         sorted_years,
         help="Año de fabricación de tu vehículo actual"
     )
+    
+    comb_reemplazo = st.selectbox(
+        "Combustible de vehículo nuevo", 
+        sorted(data["Combustible_reemplazo"].unique()),
+        help="Tipo de combustible del vehículo nuevo que deseas adquirir"
+    )
 
-# Calculate button with improved layout
+# Calculate button
 st.markdown("---")
-if st.button("📊 Calcular Incentivo", type="primary"):
-    with st.spinner("Buscando el mejor incentivo para ti..."):
+if st.button("Calcular"):
+    with st.spinner("Calculando incentivo..."):
         # Filter data
         df_filtered = data[
             (data["Categoria"] == categoria) &
@@ -103,11 +118,10 @@ if st.button("📊 Calcular Incentivo", type="primary"):
         # Show result
         if not df_filtered.empty:
             valor = df_filtered.iloc[0]["Valor_incentivo"]
-            st.balloons()
-            st.success(f"### 💰 Incentivo disponible: **${valor:,.2f}**")
+            st.success(f"Incentivo disponible: **${valor:,.2f}**")
             
             # Show additional information
-            with st.expander("📝 Información Adicional"):
+            with st.expander("Ver detalles del cálculo"):
                 st.markdown(f"""
                 - **Vehículo actual:** {categoria} ({comb_actual})
                 - **Vehículo nuevo:** {comb_reemplazo}
@@ -115,7 +129,7 @@ if st.button("📊 Calcular Incentivo", type="primary"):
                 """)
         else:
             st.warning("""
-            ### ⚠️ No se encontró un incentivo para esta combinación
+            No se encontró un incentivo para esta combinación
             
             Por favor verifica que:
             1. La combinación de combustible actual y de reemplazo sea válida
