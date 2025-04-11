@@ -8,7 +8,7 @@ def load_data():
     df.iloc[:, 0:3] = df.iloc[:, 0:3].fillna(method='ffill')
     df.columns = [
         "Categoria", "Combustible_actual", "Combustible_reemplazo",
-        "Año_fabricacion", "<2000", "2000-2002", "2003-2006", "2007-2017"
+        "<2000", "2000-2002", "2003-2006", "2007-2017"
     ]
     df = df[df["Categoria"] != "Categoria"]
     df_melted = df.melt(
