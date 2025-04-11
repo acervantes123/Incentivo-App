@@ -19,21 +19,31 @@ st.markdown("""
         background-color: white;
     }
     .stButton button {
-        width: 100%;
+        width: 50%;
         background-color: #0068c9;
         color: white;
         font-weight: bold;
-        border-radius: 4px;
+        border-radius: 20px;
+        padding: 0.5rem;
+        margin: 0 auto;
+        display: block;
     }
     .stButton button:hover {
         background-color: #0056b3;
     }
-    .stSuccess {
+    .incentive-container {
         background-color: #e6f7ee;
         border-left: 5px solid #00a651;
         padding: 1rem;
-        font-size: 24px;
         text-align: center;
+        border-radius: 4px;
+        margin-top: 1rem;
+    }
+    .incentive-value {
+        font-size: 28px;
+        font-weight: bold;
+        color: #00a651;
+        margin: 0;
     }
     .stWarning {
         background-color: #fff3e6;
@@ -41,11 +51,8 @@ st.markdown("""
         padding: 1rem;
         font-size: 18px;
     }
-    .incentive-value {
-        font-size: 28px;
-        font-weight: bold;
-        text-align: center;
-        margin-top: 10px;
+    .description {
+        margin-bottom: 20px;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -74,9 +81,9 @@ def load_data():
 # Load data
 data = load_data()
 
-# App header - Centered title
+# App header - Centered title with left-aligned description
 st.markdown('<h1 class="title">Calculadora de Incentivos para Chatarreo</h1>', unsafe_allow_html=True)
-st.markdown("<p style='text-align: center;'>Selecciona los datos del vehículo para conocer el incentivo de chatarreo disponible.</p>", unsafe_allow_html=True)
+st.markdown('<div class="description">Selecciona los datos del vehículo para conocer el incentivo de chatarreo disponible.</div>', unsafe_allow_html=True)
 
 # Create columns for better organization
 col1, col2 = st.columns(2)
@@ -122,8 +129,15 @@ if st.button("Calcular"):
         # Show result
         if not df_filtered.empty:
             valor = df_filtered.iloc[0]["Valor_incentivo"]
-            st.success("Incentivo disponible:")
-            st.markdown(f'<p class="incentive-value">${valor:,.2f}</p>', unsafe_allow_html=True)
+            st.markdown(
+                f"""
+                <div class="incentive-container">
+                    <p>Incentivo disponible:</p>
+                    <p class="incentive-value">${valor:,.2f}</p>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
         else:
             st.warning("""
             No se encontró un incentivo para esta combinación
