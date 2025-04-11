@@ -23,7 +23,7 @@ st.markdown("""
         background-color: #0068c9;
         color: white;
         font-weight: bold;
-        border-radius: 20px;
+        border-radius: 8px;  /* Made less round (from 20px to 8px) */
         padding: 0.5rem;
         margin: 0 auto;
         display: block;
