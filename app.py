@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-# Load the data (replace with your actual file path if running locally)
+# Load the data
 @st.cache_data
 def load_data():
     df = pd.read_excel("Incentivos de renovacion.xlsx", sheet_name="Hoja1")
@@ -30,11 +30,11 @@ categoria = st.selectbox("Categoría", sorted(data["Categoria"].unique()))
 comb_actual = st.selectbox("Combustible actual", sorted(data["Combustible_actual"].unique()))
 comb_reemplazo = st.selectbox("Combustible de reemplazo", sorted(data["Combustible_reemplazo"].unique()))
 
-# Sort years: "Antes del 2000" first, then ascending order
-available_years = data["Año_fabricacion"].unique()
-sorted_years = sorted(
-    available_years,
-    key=lambda x: (0 if x == "Antes del 2000" else int(x.split("-")[0]))
+# Sort years with custom order
+available_years = data["Año_fabricacion"].unique().tolist()
+year_order = ["Antes del 2000", "2000-2002", "2003-2006", "2007-2017"]
+sorted_years = [y for y in year_order if y in available_years]
+
 anio_fabricacion = st.selectbox("Año de fabricación", sorted_years)
 
 # Button to calculate
