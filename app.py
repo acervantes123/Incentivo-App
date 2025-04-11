@@ -40,7 +40,7 @@ st.markdown("""
         margin-top: 1rem;
     }
     .incentive-value {
-        font-size: 28px;
+        font-size: 36px;
         font-weight: bold;
         color: #00a651;
         margin: 0;
