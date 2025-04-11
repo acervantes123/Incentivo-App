@@ -82,8 +82,8 @@ def load_data():
 data = load_data()
 
 # App header - Centered title with left-aligned description
-st.markdown('<h1 class="title">Calculadora de Incentivos para Chatarreo</h1>', unsafe_allow_html=True)
-st.markdown('<div class="description">Selecciona los datos del vehículo para conocer el incentivo de chatarreo disponible.</div>', unsafe_allow_html=True)
+st.markdown('<h1 class="title">Calculadora de Incentivos para Programa de Chatarreo</h1>', unsafe_allow_html=True)
+st.markdown('<div class="description">Selecciona los datos del vehículo para conocer el incentivo disponible.</div>', unsafe_allow_html=True)
 
 # Create columns for better organization
 col1, col2 = st.columns(2)
@@ -149,4 +149,4 @@ if st.button("Calcular"):
 
 # Add footer
 st.markdown("---")
-st.caption("© 2023 Programa de Renovación Vehicular - Todos los derechos reservados")
+st.caption("© 2025 Programa de Renovación Vehicular AAP - Todos los derechos reservados")
