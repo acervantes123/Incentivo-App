@@ -150,4 +150,4 @@ if st.button("Calcular"):
 
 # Updated footer
 st.markdown("---")
-st.caption("© 2025 Programa de Renovación Vehicular AAP - Todos los derechos reservados")
+st.caption("© 2025 Programa desarrollado por el área Técnica de AAP - Todos los derechos reservados")
