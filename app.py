@@ -7,6 +7,13 @@ st.markdown("""
     .main {
         background-color: #F5F5F5;
     }
+    .title {
+        text-align: center;
+        color: #0068c9;
+        border-bottom: 1px solid #e0e0e0;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
     .stSelectbox div[data-baseweb="select"] {
         margin-bottom: 15px;
         background-color: white;
@@ -25,7 +32,8 @@ st.markdown("""
         background-color: #e6f7ee;
         border-left: 5px solid #00a651;
         padding: 1rem;
-        font-size: 18px;
+        font-size: 24px;
+        text-align: center;
     }
     .stWarning {
         background-color: #fff3e6;
@@ -33,11 +41,11 @@ st.markdown("""
         padding: 1rem;
         font-size: 18px;
     }
-    .header {
-        color: #0068c9;
-        border-bottom: 1px solid #e0e0e0;
-        padding-bottom: 10px;
-        margin-bottom: 20px;
+    .incentive-value {
+        font-size: 28px;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 10px;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -66,24 +74,20 @@ def load_data():
 # Load data
 data = load_data()
 
-# App header
-st.markdown('<h1 class="header">Calculadora de Incentivos para Chatarreo</h1>', unsafe_allow_html=True)
-st.markdown("Selecciona los datos del vehículo para conocer el incentivo de chatarreo disponible.")
+# App header - Centered title
+st.markdown('<h1 class="title">Calculadora de Incentivos para Programa de Chatarreo</h1>', unsafe_allow_html=True)
+st.markdown("<p style='text-align: center;'>Selecciona los datos del vehículo para conocer el incentivo disponible.</p>", unsafe_allow_html=True)
 
 # Create columns for better organization
 col1, col2 = st.columns(2)
 with col1:
     categoria = st.selectbox(
         "Categoría del Vehículo", 
-        sorted(data["Categoria"].unique()),
-        help="Selecciona la categoría de tu vehículo actual"
-    )
+        sorted(data["Categoria"].unique())
     
     comb_actual = st.selectbox(
         "Combustible de vehículo actual", 
-        sorted(data["Combustible_actual"].unique()),
-        help="Tipo de combustible que usa tu vehículo actual"
-    )
+        sorted(data["Combustible_actual"].unique())
 
 with col2:
     # Sort years with custom order
@@ -93,15 +97,11 @@ with col2:
     
     anio_fabricacion = st.selectbox(
         "Año de Fabricación",
-        sorted_years,
-        help="Año de fabricación de tu vehículo actual"
-    )
+        sorted_years)
     
     comb_reemplazo = st.selectbox(
         "Combustible de vehículo nuevo", 
-        sorted(data["Combustible_reemplazo"].unique()),
-        help="Tipo de combustible del vehículo nuevo que deseas adquirir"
-    )
+        sorted(data["Combustible_reemplazo"].unique()))
 
 # Calculate button
 st.markdown("---")
@@ -118,15 +118,8 @@ if st.button("Calcular"):
         # Show result
         if not df_filtered.empty:
             valor = df_filtered.iloc[0]["Valor_incentivo"]
-            st.success(f"Incentivo disponible: **${valor:,.2f}**")
-            
-            # Show additional information
-            with st.expander("Ver detalles del cálculo"):
-                st.markdown(f"""
-                - **Vehículo actual:** {categoria} ({comb_actual})
-                - **Vehículo nuevo:** {comb_reemplazo}
-                - **Año de fabricación:** {anio_fabricacion}
-                """)
+            st.success("Incentivo disponible:")
+            st.markdown(f'<p class="incentive-value">${valor:,.2f}</p>', unsafe_allow_html=True)
         else:
             st.warning("""
             No se encontró un incentivo para esta combinación
@@ -138,4 +131,4 @@ if st.button("Calcular"):
 
 # Add footer
 st.markdown("---")
-st.caption("© 2023 Programa de Renovación Vehicular - Todos los derechos reservados")
+st.caption("© 2025 Programa de Renovación Vehicular AAP - Todos los derechos reservados")
