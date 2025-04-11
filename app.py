@@ -23,7 +23,7 @@ st.markdown("""
         background-color: #0068c9;
         color: white;
         font-weight: bold;
-        border-radius: 8px;  /* Made less round (from 20px to 8px) */
+        border-radius: 8px;
         padding: 0.5rem;
         margin: 0 auto;
         display: block;
@@ -38,9 +38,13 @@ st.markdown("""
         text-align: center;
         border-radius: 4px;
         margin-top: 1rem;
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 18px;
     }
     .incentive-value {
-        font-size: 36px;
+        font-size: 32px;
         font-weight: bold;
         color: #00a651;
         margin: 0;
@@ -81,7 +85,7 @@ def load_data():
 # Load data
 data = load_data()
 
-# App header - Centered title with left-aligned description
+# App header with updated title and description
 st.markdown('<h1 class="title">Calculadora de Incentivos para Programa de Chatarreo</h1>', unsafe_allow_html=True)
 st.markdown('<div class="description">Selecciona los datos del vehículo para conocer el incentivo disponible.</div>', unsafe_allow_html=True)
 
@@ -147,6 +151,6 @@ if st.button("Calcular"):
             2. El año de fabricación corresponda a tu vehículo
             """)
 
-# Add footer
+# Updated footer
 st.markdown("---")
 st.caption("© 2025 Programa de Renovación Vehicular AAP - Todos los derechos reservados")
