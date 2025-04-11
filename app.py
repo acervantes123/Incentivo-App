@@ -144,7 +144,7 @@ if st.button("Calcular"):
             )
         else:
             st.warning("""
-            El incentivo para esta combinación no está disponible
+            El incentivo para esta combinación no está disponible.
         
             """)
 
